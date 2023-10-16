@@ -165,4 +165,28 @@ class Make_PDF_WP {
       return $mpdf->Output("{$dest}{$file_name}.pdf", \Mpdf\Output\Destination::FILE);
     }
   }
+
+  /**
+   * File to PDF
+   * Use @method html2pdf() to convert contents of a file to pdf
+   * @param string $file_path - path to file to convert
+   * @param array $vars - array of variables to pass to the file
+   * @param array $options - array of options to set/override
+   * @see $this->options() for params
+   * @example $this->file2pdf($file_path, $vars, $options);
+   * @example $this->file2pdf($file_path, ['var1' => 'value1', 'var2' => 'value2'], ['output' => 'DOWNLOAD']);
+   */
+  public function file2pdf($file_path, $vars = [], $options = []) {
+    // clean all the content before the pdf
+    ob_get_clean();
+
+    // Set passed variables
+    foreach ($vars as $key => $value) $$key = $value;
+
+    ob_start();
+    include($file_path);
+    $html = ob_get_clean();
+
+    $this->html2pdf($html, $options);
+  }
 }

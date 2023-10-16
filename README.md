@@ -7,11 +7,18 @@ Use this method to simply convert any html mark into pdf file.
 
 ```php
 $pdf = make_pdf_wp();
+
 // Set the options
 $options = [];
-// Generate PDF
+
+// HTML 2 PDF
 $pdf->html2pdf("<h1>hello world</h1>", $options);
 
+// FILE 2 PDF
+$file_path = __DIR__ . "/my-pdf-template.php";
+$vars = ['one' => 1, 'two' => 2];
+$options = ['output' => 'output']
+$pdf->file2pdf($file_path, $vars, $options);
 ```
 
 ### Options
@@ -26,7 +33,7 @@ $pdf->html2pdf("<h1>hello world</h1>", $options);
 | `margin_right` | The right margin of the PDF file. | `20` |
 | `margin_header` | The header margin of the PDF file. | `20` |
 | `margin_footer` | The footer margin of the PDF file. | `20` |
-| `output` | The output mode of the generated PDF file. Can be either `INLINE` or `DOWNLOAD`. | `INLINE` |
+| `output` | The output mode of the generated PDF file. Can be either `output` or `DOWNLOAD`. | `INLINE` |
 | `dest` | The destination path of the generated PDF file. | The temporary directory path |
 | `file_name` | The filename of the generated PDF file. | The current timestamp |
 | `header` | The HTML code for the header of the PDF file. | An empty string |
